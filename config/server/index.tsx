@@ -3,6 +3,8 @@ import express from 'express';
 import ReactDom from 'react-dom/server';
 import App from '../../src/App';
 import { StaticRouter } from 'react-router-dom/server';
+import chalk from 'chalk';
+
 const app = express();
 
 app.use(express.static('public'));
@@ -34,5 +36,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('server listene on 3000 port.');
+  console.log(`${chalk.green(`server listene on 3000 port.`)}`);
 });

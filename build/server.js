@@ -26,7 +26,7 @@
   ));
 
   // config/server/index.tsx
-  var import_react5 = __toESM(__require("react"));
+  var import_react6 = __toESM(__require("react"));
   var import_express = __toESM(__require("express"));
   var import_server = __toESM(__require("react-dom/server"));
 
@@ -42,9 +42,9 @@
   var import_material = __require("@mui/material");
   var HomePage = () => {
     const [count, setCount] = (0, import_react2.useState)(0);
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement(import_material.Button, {
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, "Hello Home!"), /* @__PURE__ */ import_react.default.createElement("p", null, "Counter is ", count, "!"), /* @__PURE__ */ import_react.default.createElement(import_material.Button, {
       onClick: () => setCount(count + 1)
-    }, "++"));
+    }, "Add Counter"));
   };
   var Home_default = HomePage;
 
@@ -78,20 +78,37 @@
   ];
   var router_config_default = routes;
 
+  // src/socket/index.ts
+  var import_react5 = __require("react");
+  var import_socket = __require("socket.io-client");
+  var useSocket = () => {
+    (0, import_react5.useEffect)(() => {
+      const socket = (0, import_socket.io)("ws://localhost:3001");
+      socket.on("refer", () => {
+        location.reload();
+      });
+    }, []);
+  };
+  var socket_default = useSocket;
+
   // src/App.tsx
-  var App = () => (0, import_react_router_dom.useRoutes)(router_config_default);
+  var App = () => {
+    socket_default();
+    return (0, import_react_router_dom.useRoutes)(router_config_default);
+  };
   var App_default = App;
 
   // config/server/index.tsx
   var import_server2 = __require("react-router-dom/server");
+  var import_chalk = __toESM(__require("chalk"));
   var app = (0, import_express.default)();
   app.use(import_express.default.static("public"));
   app.get("*", (req, res) => {
     const { renderToString } = import_server.default;
     const element = renderToString(
-      /* @__PURE__ */ import_react5.default.createElement(import_server2.StaticRouter, {
+      /* @__PURE__ */ import_react6.default.createElement(import_server2.StaticRouter, {
         location: req.url
-      }, /* @__PURE__ */ import_react5.default.createElement(App_default, null))
+      }, /* @__PURE__ */ import_react6.default.createElement(App_default, null))
     );
     res.send(
       `
@@ -112,6 +129,6 @@
     );
   });
   app.listen(3e3, () => {
-    console.log("server listene on 3000 port.");
+    console.log(`${import_chalk.default.green(`server listene on 3000 port.`)}`);
   });
 })();

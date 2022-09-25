@@ -6,7 +6,9 @@ const HomePage = () => {
   const [count, setCount] = useState(0);
   return (
     <div>
-      <Button onClick={() => setCount(count + 1)}>++</Button>
+      <p>Hello Home!</p>
+      <p>Counter is {count}!</p>
+      <Button onClick={() => setCount(count + 1)}>Add Counter</Button>
     </div>
   );
 };
